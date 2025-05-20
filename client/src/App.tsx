@@ -85,7 +85,7 @@ function App() {
                         }),
                     );
 
-             window.location.href = "/properties";
+             window.location.href = "/";
                 } else {
                     return Promise.reject();
                 }
