@@ -36,7 +36,7 @@ import {
     MyProfile,
     PropertyDetails,
 } from "pages";
-import { useNavigate } from "react-router-dom";
+
 
 const axiosInstance = axios.create();
 axiosInstance.interceptors.request.use(
@@ -53,7 +53,7 @@ axiosInstance.interceptors.request.use(
 );
 
 function App() {
-    const navigate = useNavigate()
+   
 
     const authProvider: AuthProvider = {
         login: async ({ credential }: CredentialResponse) => {
@@ -85,7 +85,7 @@ function App() {
                         }),
                     );
 
-                    navigate("/properties")
+             window.location.href = "/properties";
                 } else {
                     return Promise.reject();
                 }
