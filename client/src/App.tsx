@@ -36,6 +36,7 @@ import {
     MyProfile,
     PropertyDetails,
 } from "pages";
+import { useNavigate } from "react-router-dom";
 
 const axiosInstance = axios.create();
 axiosInstance.interceptors.request.use(
@@ -52,13 +53,15 @@ axiosInstance.interceptors.request.use(
 );
 
 function App() {
+    const navigate = useNavigate()
+
     const authProvider: AuthProvider = {
         login: async ({ credential }: CredentialResponse) => {
             const profileObj = credential ? parseJwt(credential) : null;
 
             if (profileObj) {
                 const response = await fetch(
-                    "http://localhost:8080/api/v1/users",
+                    "https://swe-mern-dashboard.onrender.com/api/v1/users",
                     {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
@@ -81,6 +84,8 @@ function App() {
                             userid: data._id,
                         }),
                     );
+
+                    navigate("/properties")
                 } else {
                     return Promise.reject();
                 }
@@ -129,7 +134,7 @@ function App() {
             <GlobalStyles styles={{ html: { WebkitFontSmoothing: "auto" } }} />
             <RefineSnackbarProvider>
                 <Refine
-                    dataProvider={dataProvider("http://localhost:8080/api/v1")}
+                    dataProvider={dataProvider("https://swe-mern-dashboard.onrender.com/api/v1")}
                     notificationProvider={notificationProvider}
                     ReadyPage={ReadyPage}
                     catchAll={<ErrorComponent />}
